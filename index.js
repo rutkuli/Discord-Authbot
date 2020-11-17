@@ -181,7 +181,7 @@ client.on('message', message => {
 
             return message.channel.send(embed);
         }
-        conn.query('SELECT * FROM users WHERE license = ?', [args[0]], function (err, result, fields) {
+        conn.query('SELECT * FROM users WHERE license = ?', [args[0]], function (err, result) {
             if (err) {
                 const embed = new Discord.RichEmbed()
                     .setColor('#e2574c')
@@ -201,11 +201,9 @@ client.on('message', message => {
 
                 if (result) {
 
-                    let beforeproduct = result[0].product;
-
                     if (result[0].user == message.member.id || message.member.hasPermission('ADMINISTRATOR')) {
 
-                        conn.query('UPDATE users SET product = ? WHERE license = ?', [args[1], args[0]], function (err, result, fields) {
+                        conn.query('UPDATE users SET product = ? WHERE license = ?', [args[1], args[0]], function (err) {
 
                             if (err) {
 
@@ -241,7 +239,7 @@ client.on('message', message => {
 
  if (command === 'status') {
 
-        conn.query('SELECT * FROM users WHERE user = ?', [message.member.id], function (err, result, fields) {
+        conn.query('SELECT * FROM users WHERE user = ?', [message.member.id], function (err, result) {
 
             if (err) {
 
@@ -410,7 +408,7 @@ client.on('message', message => {
 
                 return message.channel.send(embed);
             }
-                conn.query(`INSERT INTO users (license, expire, creator) VALUES ('${r}', DATE_ADD(NOW(), INTERVAL ${args[0]} ${args[1]}), ${message.member.id});`, function (err, result) {
+                conn.query(`INSERT INTO users (license, expire, creator) VALUES ('${r}', DATE_ADD(NOW(), INTERVAL ${args[0]} ${args[1]}), ${message.member.id});`, function (err) {
                     if (err) {
                         const embed = new Discord.RichEmbed()
                             .setColor('#e2574c')
