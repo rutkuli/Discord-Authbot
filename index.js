@@ -50,9 +50,6 @@ setInterval(function(){
 client.on('message', message => {
     if (!message.content.startsWith(config.prefix) || message.author.bot) return;
     if (message.channel.type == "dm") return;	
-    if (message.channel.id === 'channel id') return;
-	if (message.channel.id === 'channel id') return;
-	if (message.channel.id === 'channel id') return;
     const args = message.content.slice(config.prefix.length).split(' ');
     const command = args.shift();
 	
