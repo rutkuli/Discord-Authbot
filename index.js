@@ -289,7 +289,7 @@ client.on('message', message => {
     }
     if (command === 'keys') {
 
-        conn.query('SELECT * FROM users WHERE user = ?', [message.member.id], function (err, result, fields) {
+        conn.query('SELECT * FROM users WHERE user = ?', [message.member.id], function (err, result) {
 
             if (err) {
 
@@ -363,7 +363,7 @@ client.on('message', message => {
 
                 return message.channel.send(exampleEmbed);
             }
-            conn.query('SELECT license FROM users WHERE license = ?', [args[0]], function (err, result, fields) {
+            conn.query('SELECT license FROM users WHERE license = ?', [args[0]], function (err, result) {
                 if (err) {
                     const embed = new Discord.RichEmbed()
                         .setColor('#e2574c')
@@ -373,7 +373,7 @@ client.on('message', message => {
                 }
                 if (result.length > 0) {
                     if (result) {
-                        conn.query('DELETE FROM users WHERE license = ?', [args[0]], function (err, result, fields) {                      
+                        conn.query('DELETE FROM users WHERE license = ?', [args[0]], function (err) {                      
                             if (err) {
                                 const embed = new Discord.RichEmbed()
                                     .setColor('#e2574c')
@@ -410,7 +410,7 @@ client.on('message', message => {
 
                 return message.channel.send(embed);
             }
-                conn.query(`INSERT INTO users (license, expire, creator) VALUES ('${r}', DATE_ADD(NOW(), INTERVAL ${args[0]} ${args[1]}), ${message.member.id});`, function (err, result, fields) {
+                conn.query(`INSERT INTO users (license, expire, creator) VALUES ('${r}', DATE_ADD(NOW(), INTERVAL ${args[0]} ${args[1]}), ${message.member.id});`, function (err, result) {
                     if (err) {
                         const embed = new Discord.RichEmbed()
                             .setColor('#e2574c')
